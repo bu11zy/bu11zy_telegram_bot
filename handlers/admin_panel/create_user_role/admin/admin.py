@@ -29,33 +29,33 @@ async def load_user_role_admin(callback_query: types.CallbackQuery):
 @dp.message_handler(state=FSM_create_user_role_admin.user_id)
 async def load_user_id(message: types.Message, state: FSMContext):
     #Записываем в дату указанный user_id в сообщении
-    test = await check_bd_user_role(user_id=int(message.text))
-    if test == 'admin':
-        await state.finish()
-        #Присылаем сообщение
-        await bot.send_message(chat_id=message.from_user.id,
+    try:
+        #Проверка число ли message.text, если нет ValueError
+        float(message.text)
+        test = await check_bd_user_role(user_id=int(message.text))
+        if test == 'admin':
+            await state.finish()
+            #Присылаем сообщение
+            await bot.send_message(chat_id=message.from_user.id,
                                text=f"\nОшибка ID пользователя уже используется"
                                f"\nЭто Админ\n"
                                f"\nID пользователя:  {message.text}\n"
                                f"\nПопробуйте снова",
                                reply_markup=admin_panel_keyboard_back_to_main_menu)
-    elif test == 'cm':
-        await state.finish()
-        #Присылаем сообщение
-        await bot.send_message(chat_id=message.from_user.id,
+        elif test == 'cm':
+            await state.finish()
+            #Присылаем сообщение
+            await bot.send_message(chat_id=message.from_user.id,
                                text=f"\nОшибка ID пользователя уже используется"
                                f"\nЭто Контент менеджер\n"
                                f"\nID пользователя:  {message.text}\n"
                                f"\nПопробуйте снова",
                                reply_markup=admin_panel_keyboard_back_to_main_menu)
-    else:
-        async with state.proxy() as data:
-            data['user_id'] = message.text
-            #Записываем в дату в виде строки
-            str_data = str(data['user_id'])
-            try:
-                #Проверка число ли стр_дата, если нет ValueError
-                float(str_data)
+        else:
+            async with state.proxy() as data:
+                data['user_id'] = message.text
+                #Записываем в дату в виде строки
+                str_data = str(data['user_id'])
                 #Записываем в дату в виде числа
                 int_data = int(str_data)
                 #Проверка меньше ли инт_дата чем ноль, если нет else:
@@ -75,13 +75,13 @@ async def load_user_id(message: types.Message, state: FSMContext):
                                            text=f"\nАдминистратор\n"
                                            f"ID пользователя:  {int_data}\n"
                                            f"\nВведите Никнейм: ")
-            except ValueError:
-                #Закрываем состояние
-                await state.finish()
-                #Присылаем сообщение
-                await bot.send_message(chat_id=message.from_user.id,
+    except ValueError:
+        #Закрываем состояние
+        await state.finish()
+        #Присылаем сообщение
+        await bot.send_message(chat_id=message.from_user.id,
                                        text=f"\nОшибка ID пользователя (Это не число)\n"
-                                       f"ID пользователя:  {str_data}\n"
+                                       f"ID пользователя:  {message.text}\n"
                                        f"\nПопробуйте снова",
                                        reply_markup=admin_panel_keyboard_back_to_main_menu)
             
