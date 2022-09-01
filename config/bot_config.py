@@ -2,6 +2,7 @@
 import logging
 from aiogram import Bot, Dispatcher
 from dotenv import dotenv_values
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 
 #Получение токена из файла .env
@@ -14,4 +15,4 @@ logging.basicConfig(level=logging.INFO)
 
 #Запуск бота и диспатчера
 bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
+dp = Dispatcher(bot, storage=MemoryStorage())

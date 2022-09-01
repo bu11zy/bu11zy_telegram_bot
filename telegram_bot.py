@@ -5,7 +5,12 @@ from handlers.admin_panel.create_post import *
 from handlers.admin_panel.delete_post import *
 from handlers.admin_panel.main_menu import *
 from handlers.start.start import *
-from handlers.test.test import *
+from handlers.admin_panel.cancel import *
+from handlers.admin_panel.create_user_role.create_user_role import *
+from handlers.admin_panel.create_user_role.admin.admin import *
+from handlers.admin_panel.create_user_role.cm.cm import *
+#from handlers.test.test import *
+
 
 
 
