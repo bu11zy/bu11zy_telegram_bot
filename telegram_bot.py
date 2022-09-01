@@ -9,6 +9,7 @@ from handlers.admin_panel.cancel import *
 from handlers.admin_panel.create_user_role.create_user_role import *
 from handlers.admin_panel.create_user_role.admin.admin import *
 from handlers.admin_panel.create_user_role.cm.cm import *
+from handlers.admin_panel.delete_user_role.delete_user_role import *
 #from handlers.test.test import *
 
 

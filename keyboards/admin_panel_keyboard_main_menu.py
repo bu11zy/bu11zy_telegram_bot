@@ -13,6 +13,9 @@ ap_btn_dp = types.InlineKeyboardButton('Удалить пост',
 #Кнопка admin_panel_btn_make_user_role
 ap_btn_mur = types.InlineKeyboardButton('Назначить роль пользователю',
                                        callback_data='make_user_role')
+ap_btn_drfu = types.InlineKeyboardButton('Удалить роль у пользователя',
+                                       callback_data='delete_role_from_user')
 #Добавляем кнопки в клавиатуру
 admin_panel_keyboard_main_menu.row(ap_btn_mur)
+admin_panel_keyboard_main_menu.row(ap_btn_drfu)
 admin_panel_keyboard_main_menu.row(ap_btn_cp, ap_btn_dp)
