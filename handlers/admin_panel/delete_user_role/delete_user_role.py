@@ -20,7 +20,8 @@ async def admin_panel_create_user_role(callback_query: types.CallbackQuery):
                              message_id=callback_query.message.message_id)
     await bot.send_message(chat_id=callback_query.from_user.id,
                            text=f"Кому вы хотите снять роль?\n"
-                           f"Напишите ID:")
+                           f"Напишите ID:",
+                           reply_markup=admin_panel_keyboard_back_to_main_menu)
 
 
 @dp.message_handler(state=FSM_delete_role_from_user.user_id)

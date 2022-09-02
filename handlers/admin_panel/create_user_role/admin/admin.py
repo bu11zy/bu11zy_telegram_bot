@@ -22,7 +22,8 @@ async def load_user_role_admin(callback_query: types.CallbackQuery):
     #Отправляем сообщение
     await bot.delete_message(chat_id=callback_query.from_user.id, message_id=callback_query.message.message_id)
     await bot.send_message(chat_id=callback_query.from_user.id,
-                           text=f"Роль успешно выбрана.\n\nВведите user_id пользователя которого хотите назначить администратором:")
+                           text=f"Роль успешно выбрана.\n\nВведите user_id пользователя которого хотите назначить администратором:",
+                           reply_markup=admin_panel_keyboard_back_to_main_menu)
 
 
 #Принимаем состояние
@@ -74,7 +75,8 @@ async def load_user_id(message: types.Message, state: FSMContext):
                     await bot.send_message(chat_id=message.from_user.id,
                                            text=f"\nАдминистратор\n"
                                            f"ID пользователя:  {int_data}\n"
-                                           f"\nВведите Никнейм: ")
+                                           f"\nВведите Никнейм: ",
+                                           reply_markup=admin_panel_keyboard_back_to_main_menu)
     except ValueError:
         #Закрываем состояние
         await state.finish()
