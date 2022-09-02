@@ -47,11 +47,4 @@ async def load_user_id(message: types.Message, state: FSMContext):
                                f"Дата создания:\n{cur_date}\n"
                                f"Время создания создания:\n{cur_time}\n"
                                f"Вы успешно создали запись\n",
-                               reply_markup=admin_panel_keyboard_back_to_main_menu)
-        #Отправляем сообщение в канал
-        await bot.send_message(chat_id=chat_id,
-                               text=f"<b>Название:</b>\n<i>{post_name}</i>\n"
-                               f"\n<b>Описание:</b>\n<i>{post_disc}</i>\n"
-                               f"\n<b>Ссылка:</b>\n<i>{post_link}</i>\n"
-                               f"\n<b>Тэг:</b>\n<i>#{post_tag}</i>\n", parse_mode='HTML')
-        
+                               reply_markup=admin_panel_keyboard_back_to_main_menu)        

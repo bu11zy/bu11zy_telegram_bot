@@ -1,4 +1,3 @@
-#Импорты
 import asyncpg
 from config.bot_config import CONFIG_DIR
 from dotenv import dotenv_values
@@ -15,11 +14,8 @@ HOST = config['host']
 
 
 #Sql функция
-async def check_bd_user_name(user_id):
+async def change_post(post_name, post_disc, post_tag, post_link, post_id):
     conn = await asyncpg.connect(user=USER, password=PSWD, database=DB, host=HOST)
-    row = await conn.fetchrow('SELECT user_name FROM user_role WHERE user_id = $1', user_id)
+    await conn.execute('UPDATE posts SET post_name=$1, post_disc=$2, post_tag=$3, post_link=$4 WHERE id=$5', 
+                             post_name, post_disc, post_tag, post_link, post_id)
     await conn.close()
-    if row is None:
-        return 'None'
-    else:
-        return row['user_name']
