@@ -5,6 +5,8 @@ from config.bot_config import dp, bot
 from aiogram.dispatcher import FSMContext
 from handlers.admin_panel.change_post.get_post import FSM_change_post
 from bd_handlers.change_post.change_post import change_post
+from bd_handlers.create_post.check_user_name import check_bd_user_name
+import datetime
 
 
 #В этой функции изменяется пост
@@ -19,10 +21,15 @@ async def post_link(message: types.Message, state: FSMContext):
         post_tag = str(data['post_tag'])
         post_link = str(data['post_link'])
         post_id = int(data['post_id'])
+        user_id = int(message.from_user.id)
+        cur_date = str(datetime.datetime.now().date())
+        cur_time = str(datetime.datetime.now().time().replace(microsecond=0))
         #Закрываем состояние
         await state.finish()
+        user_name = await check_bd_user_name(user_id=user_id)
         #SQL функция
-        await change_post(post_name=post_name, post_disc=post_disc, post_tag=post_tag, post_link=post_link, post_id=post_id)
+        await change_post(post_name=post_name, post_disc=post_disc, post_tag=post_tag,
+                          post_link=post_link, change_user_name=user_name, change_date=cur_date, change_time=cur_time, post_id=post_id)
         #Отправляем сообщение
         await bot.send_message(chat_id=message.from_user.id,
                                text=f"ID записи: {post_id}\n"
